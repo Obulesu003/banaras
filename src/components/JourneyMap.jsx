@@ -359,9 +359,11 @@ const Scene = ({ scrollProgress, setOverlayState }) => {
     // Smooth scroll tracker
     const smoothedProgress = useRef(0);
 
+    const currentLookAt = useRef(new THREE.Vector3(0, 2, 0));
+
     useFrame((state) => {
         // Smoothly interpolate progress
-        smoothedProgress.current = THREE.MathUtils.lerp(smoothedProgress.current, scrollProgress.current, 0.1);
+        smoothedProgress.current = THREE.MathUtils.lerp(smoothedProgress.current, scrollProgress.current, 0.03);
 
         const totalStops = stops.length;
         // Calculate scroll progress
@@ -373,7 +375,7 @@ const Scene = ({ scrollProgress, setOverlayState }) => {
         let isStopped = false;
         const STOP_DISTANCE = 200;
 
-        // Logic: 
+        // Logic:
         // 0.0 - 0.2: Travel
         // 0.2 - 1.0: Stop
 
@@ -415,9 +417,11 @@ const Scene = ({ scrollProgress, setOverlayState }) => {
             targetLookAt.set(0, 2, zPos - 10);
         }
 
-        state.camera.position.lerp(targetPos, 0.05);
-        const currentLookAt = new THREE.Vector3(0, 0, zPos - 10);
-        state.camera.lookAt(currentLookAt.lerp(targetLookAt, 0.05));
+        state.camera.position.lerp(targetPos, 0.02);
+
+        // Smoothly interpolate the lookAt target
+        currentLookAt.current.lerp(targetLookAt, 0.02);
+        state.camera.lookAt(currentLookAt.current);
 
         // Update React State ONLY if changed
         const safeStopIndex = Math.min(currentStopIndex, totalStops - 1);
@@ -432,11 +436,12 @@ const Scene = ({ scrollProgress, setOverlayState }) => {
         }
     });
 
+    console.log("Scene mounted");
     return (
         <>
             <DreiEnvironment preset="night" />
-            <ambientLight intensity={0.1} color="#b0c4de" />
-            <directionalLight position={[-20, 20, 10]} intensity={0.5} color="#b0c4de" castShadow />
+            <ambientLight intensity={0.5} color="#ffffff" />
+            <directionalLight position={[-20, 20, 10]} intensity={1} color="#ffffff" castShadow />
 
             <StreetLights />
 

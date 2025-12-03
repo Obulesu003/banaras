@@ -17,6 +17,7 @@ html {
 }
 
 body {
+  background-color: #050816;
   background-color: var(--color-dark-base);
   color: var(--color-light-base);
   font-family: var(--font-body);
