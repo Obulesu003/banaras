@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon-pink: #FF007F;
+  --color-electric-yellow: #FEE440;
+  --color-holi-green: #2ECC71;
+  --color-electric-blue: #3F1DFF;
+  --color-dark-base: #050816;
+  --color-light-base: #FFF7ED;
+
+  --font-display: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--color-dark-base);
+  color: var(--color-light-base);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
