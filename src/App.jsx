@@ -8,11 +8,13 @@ import Audience from './components/Audience';
 import MediaWall from './components/MediaWall';
 import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
+import WhatsAppWidget from './components/WhatsAppWidget';
 
 function App() {
   return (
     <div className="bg-dark-base min-h-screen text-white font-body selection:bg-neon-pink selection:text-white">
       <Navbar />
+      <WhatsAppWidget />
       <main>
         <Hero />
         <ExperienceHighlight />
